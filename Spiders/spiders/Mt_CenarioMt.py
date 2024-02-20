@@ -39,7 +39,7 @@ search_limit = datetime.strptime(search_limit.strftime("%d/%m/%Y"), "%d/%m/%Y")
 with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/MT/Mt_CenarioMt.json") as f:
     search_terms = json.load(f)
 
-request = requests.get(f"{os.environ['API_IP']}/scrape/news/1a6efd0a-a1f8-4bdb-86ab-7e7dc68cc9f4")
+request = requests.get(f"{os.environ['API_IP']}/scrape/news/1c9f1968-7049-425d-9a7d-a45a663dfcc6")
 search_words = request.json()
 class MtCenariomtSpider(scrapy.Spider):
     name = "Mt_CenarioMt"

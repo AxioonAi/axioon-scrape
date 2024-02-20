@@ -49,7 +49,7 @@
 # search_limit = datetime.strptime(search_limit.strftime("%d/%m/%Y"), "%d/%m/%Y")
 
 # # INIT API ROUTE
-# request = requests.get(f"{os.environ['API_IP']}/scrape/news/1ee1046b-1fe7-4308-92ae-121e524082ea")
+# request = requests.get(f"{os.environ['API_IP']}/scrape/news/d9a13231-ff58-47f7-a3f1-e918c35b38fc")
 # search_words = request.json()
 
 # item = []

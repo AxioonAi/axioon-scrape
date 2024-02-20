@@ -39,7 +39,7 @@ search_limit = datetime.strptime(search_limit.strftime("%d/%m/%Y"), "%d/%m/%Y")
 main_url = "https://www.olhardireto.com.br/noticias/"
 
 # INIT API ROUTE
-request = requests.get(f"{os.environ['API_IP']}/scrape/without/news/c7711fee-09bf-4c80-8823-263c23b58e65")
+request = requests.get(f"{os.environ['API_IP']}/scrape/without/news/9649b622-c704-43f8-a7ed-c5d29502ddfb")
 search_words = request.json()
 
 with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/MT/Mt_OlharDireto.json") as f:

@@ -38,7 +38,7 @@ today = datetime.strptime(today, "%d/%m/%Y")
 search_limit = date.today() - timedelta(days=1)
 search_limit = datetime.strptime(search_limit.strftime("%d/%m/%Y"), "%d/%m/%Y")
 
-request = requests.get(f"{os.environ['API_IP']}/scrape/news/4452c674-338d-48d0-bf6a-ee983a67d82d")
+request = requests.get(f"{os.environ['API_IP']}/scrape/news/aeee8db5-4c27-45e3-bdce-d6ee8f71ae90")
 search_words = request.json()
 
 item = []

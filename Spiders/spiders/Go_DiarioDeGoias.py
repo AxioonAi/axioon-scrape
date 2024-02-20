@@ -36,7 +36,7 @@ search_limit = date.today() - timedelta(days=1)
 search_limit = datetime.strptime(search_limit.strftime("%d/%m/%Y"), "%d/%m/%Y")
 main_url = "https://diariodegoias.com.br/politica/"
 
-request = requests.get(f"{os.environ['API_IP']}/scrape/news/aa5af0b0-4857-46cd-a8d4-ad3ff45dbac4")
+request = requests.get(f"{os.environ['API_IP']}/scrape/news/4f6ab7c6-1f08-43e0-b1ec-44b15001eb92")
 search_words = request.json()
 
 with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/GO/Go_DiarioDeGoias.json") as f:

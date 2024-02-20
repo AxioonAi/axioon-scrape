@@ -40,7 +40,7 @@ search_limit = date.today() - timedelta(days=60)
 search_limit = datetime.strptime(search_limit.strftime("%d/%m/%Y"), "%d/%m/%Y")
 
 # INIT API ROUTE
-request = requests.get(f"{os.environ['API_IP']}/scrape/without/news/9ecbcb82-b10e-43f5-81b8-5adc60a851ae")
+request = requests.get(f"{os.environ['API_IP']}/scrape/without/news/25d9d9c6-4e6c-4c98-9acd-7c17e1852663")
 search_words = request.json()
 
 with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/GO/Go_GoiasEmDia.json") as f:

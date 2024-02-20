@@ -38,7 +38,7 @@ search_limit = datetime.strptime(search_limit.strftime("%d/%m/%Y"), "%d/%m/%Y")
 
 main_url = "https://www.gazetadigital.com.br/includes/"
 
-request = requests.get(f"{os.environ['API_IP']}/scrape/news/924d2218-803f-44bd-890d-30619b116bb2")
+request = requests.get(f"{os.environ['API_IP']}/scrape/news/9d2d36c0-8cc3-4a27-a59b-5291a5e27140")
 search_words = request.json()
 
 with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/MT/Mt_GazetaDigital.json") as f:

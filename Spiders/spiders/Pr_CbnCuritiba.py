@@ -38,7 +38,7 @@ today = datetime.strptime(today, "%d/%m/%Y")
 search_limit = date.today() - timedelta(days=1)
 search_limit = datetime.strptime(search_limit.strftime("%d/%m/%Y"), "%d/%m/%Y")
 
-request = requests.get(f"{os.environ['API_IP']}/scrape/news/962411d8-8ca3-41aa-ac0c-02dc9e12e9d9")
+request = requests.get(f"{os.environ['API_IP']}/scrape/news/dfd6e216-808b-4ed7-8fef-0cf7ca9776e6")
 search_words = request.json()
 
 with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/PR/Pr_CbnCuritiba.json") as f:

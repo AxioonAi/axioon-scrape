@@ -36,7 +36,7 @@ search_limit = date.today() - timedelta(days=1)
 search_limit = datetime.strptime(search_limit.strftime("%d/%m/%Y"), "%d/%m/%Y")
 main_url = "https://www.dmanapolis.com.br/politica"
 
-request = requests.get(f"{os.environ['API_IP']}/scrape/news/b10409df-dda2-4aa4-af07-3eda30b76944")
+request = requests.get(f"{os.environ['API_IP']}/scrape/news/1729be51-db34-4c34-8d06-4c878eade13d")
 search_words = request.json()
 
 with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/GO/Go_DmAnapolis.json") as f:
