@@ -72,6 +72,6 @@ with open("/home/scrapeops/axioon-scrape/Apify/Results/Youtube/Youtube_Videos.js
 with open("/home/scrapeops/axioon-scrape/Apify/Results/Youtube/Youtube_Videos_Urls.json", "w") as f:
     f.write(posts_str)
     
-upload_file(f"Apify/Results/Youtube/Youtube_Videos.json", "axioon", f"Apify/YouTube/Videos/YouTube_Videos_{timestamp}.json")
+upload_file(f"/home/scrapeops/axioon-scrape/Apify/Results/Youtube/Youtube_Videos.json", "axioon", f"Apify/YouTube/Videos/YouTube_Videos_{timestamp}.json")
 
 file_name = requests.post(f"{os.environ['API_IP']}/webhook/youtube/video", json={"records": f"Apify/YouTube/Videos/YouTube_Videos_{timestamp}.json"})
