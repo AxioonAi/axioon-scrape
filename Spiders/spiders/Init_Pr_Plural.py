@@ -106,7 +106,7 @@ class InitPrPluralSpider(scrapy.Spider):
                         with open(file_path, "w") as f:
                             json.dump(data, f, ensure_ascii=False)
                             
-                        upload_file(f"Spiders/Results/{self.name}_{timestamp}.json", "axioon", f"News/PR/{self.name}_{timestamp}.json")
+                        upload_file(f"/home/scrapeops/axioon-scrape/Spiders/Results/{self.name}_{timestamp}.json", "axioon", f"News/PR/{self.name}_{timestamp}.json")
                         file_name = requests.post(f"{os.environ['API_IP']}/webhook/news", json={"records": f"News/PR/{self.name}_{timestamp}.json"})
                      
         else:
