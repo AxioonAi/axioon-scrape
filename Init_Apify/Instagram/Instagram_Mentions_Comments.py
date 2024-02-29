@@ -28,7 +28,7 @@ now = datetime.now()
 timestamp = datetime.timestamp(now)
 last_week = date.today() - timedelta(days=7)
 
-with open("/home/scrapeops/axioon-scrape/Init_Apify/Results/Instagram/Instagram_Mentions_Urls.json") as f:
+with open("Init_Apify/Results/Instagram/Instagram_Mentions_Urls.json") as f:
     input = json.load(f)
 
 client = ApifyClient(os.environ['APIFY_KEY'])
@@ -47,9 +47,9 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
                 
     json_str = json.dumps(json_array, indent=4, ensure_ascii=False)
 
-with open("/home/scrapeops/axioon-scrape/Init_Apify/Results/Instagram/Instagram_Mentions_Comments.json", "w") as f:
+with open("Init_Apify/Results/Instagram/Instagram_Mentions_Comments.json", "w") as f:
     f.write(json_str)
     
-upload_file("/home/scrapeops/axioon-scrape/Init_Apify/Results/Instagram/Instagram_Mentions_Comments.json", "axioon", f"Apify/Instagram/Mentions_Comments/Instagram_Mentions_Comments_{timestamp}.json")
+upload_file("Init_Apify/Results/Instagram/Instagram_Mentions_Comments.json", "axioon", f"Apify/Instagram/Mentions_Comments/Instagram_Mentions_Comments_{timestamp}.json")
 
 file_name = requests.post(f"{os.environ['API_IP']}/webhook/instagram/mentions/comments", json={"records": f"Apify/Instagram/Mentions_Comments/Instagram_Mentions_Comments_{timestamp}.json"})

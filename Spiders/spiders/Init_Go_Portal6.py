@@ -39,8 +39,10 @@ search_limit = date.today() - timedelta(days=60)
 search_limit = datetime.strptime(search_limit.strftime("%d/%m/%Y"), "%d/%m/%Y")
 main_url = "https://portal6.com.br/categoria/poder/politica/page/1/"
 
+site_id = "fd947f48-4b55-4502-9823-79d454332964"
+
 # INIT API ROUTE
-request = requests.get(f"{os.environ['API_IP']}/scrape/without/news/fd947f48-4b55-4502-9823-79d454332964")
+request = requests.get(f"{os.environ['API_IP']}/scrape/without/news/{site_id}")
 search_words = request.json()
 
 with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/GO/Go_Portal6.json") as f:
@@ -81,7 +83,8 @@ class InitGoPortal6Spider(scrapy.Spider):
                         title=title,
                         content=content,
                         link=response.url,
-                        users=found_names
+                        users=found_names,
+                        site_id=site_id
                     )
                     yield item
                     if item is not None:
@@ -90,9 +93,10 @@ class InitGoPortal6Spider(scrapy.Spider):
                             "title": item['title'],
                             "content": [item['content']],
                             "link": item['link'],
-                            "users": item['users']
+                            "users": item['users'],
+                            "site_id": item['site_id']
                         }
-                        file_path = f"Spiders/Results/{self.name}_{timestamp}.json"
+                        file_path = f"/home/scrapeops/axioon-scrape/Spiders/Results/{self.name}_{timestamp}.json"
                         if not os.path.isfile(file_path):
                             with open(file_path, "w") as f:
                                 json.dump([], f)

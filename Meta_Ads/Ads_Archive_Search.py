@@ -45,6 +45,7 @@ search_amount = [
 ]
 
 search_queries = {"ad_reached_countries": "BR", "search_terms": "", "ad_delivery_date_min": "", "bylines": "", "ad_type": "POLITICAL_AND_ISSUE_ADS", "fields": "ad_creation_time,ad_delivery_start_time,ad_delivery_stop_time,ad_snapshot_url,bylines,page_name,currency,spend,impressions,delivery_by_region,demographic_distribution","limit": 5000, "access_token": os.environ['META_ADS_ACCESS_TOKEN']}
+# search_queries = {"ad_reached_countries": "BR", "search_terms": "", "ad_delivery_date_min": "", "bylines": "", "ad_type": "POLITICAL_AND_ISSUE_ADS", "fields": "ad_creation_time,ad_delivery_start_time,ad_delivery_stop_time,ad_snapshot_url,bylines,page_name,currency,spend,impressions,delivery_by_region,demographic_distribution","limit": 5000, "access_token": "EAAP5YnSqmRcBO1LdYoSiAPQ2m4tEy28ap2Nd28DuFZCVeND1aDiH670mW5OHRVO7tDD1XJ6juVCTk0b9dKfNYftPa7uHY7Q7diZCMN5EHBHdUM5OXZCX8xh9YsPAZBX3fqp4og7nwF1oruzz66APZAjnfgBgk1dlGuFAs1w78X8hI9zE5qK2TjHX2wCiBaVqQoVBHo1iFg75BWAn0"}
 
 current_version = "v19.0"
 
@@ -69,6 +70,8 @@ for item in search_amount:
 
     result.append(json_array)
     
+    print("result: ", result)
+    
     for item in result:
         for individual in item["data"]:
             for input_name, input_facebook_name, input_id in zip(input_names, input_facebook_names, input_ids):
@@ -77,9 +80,9 @@ for item in search_amount:
                
 result_str = json.dumps(result, ensure_ascii=False, indent=4)
     
-with open(f"/home/scrapeops/axioon-scrape/Results/Meta_Ads_Results_{timestamp}.json", "w") as f:
+with open(f"Results/Meta_Ads_Results_{timestamp}.json", "w") as f:
     f.write(result_str)
 
-upload_file(f"/home/scrapeops/axioon-scrape/Results/Meta_Ads_Results_{timestamp}.json", "axioon", f"Meta_Ads/Meta_Ads_Results_{timestamp}.json")
+upload_file(f"Results/Meta_Ads_Results_{timestamp}.json", "axioon", f"Meta_Ads/Meta_Ads_Results_{timestamp}.json")
 
 file_name = requests.post(f"{os.environ['API_IP']}/webhook/facebook/ads", json={"records": f"Apify/Meta_Ads/Meta_Ads_Results_{timestamp}.json"})

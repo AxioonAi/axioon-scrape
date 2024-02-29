@@ -38,7 +38,9 @@ today = datetime.strptime(today, "%d/%m/%Y")
 search_limit = date.today() - timedelta(days=1)
 search_limit = datetime.strptime(search_limit.strftime("%d/%m/%Y"), "%d/%m/%Y")
 
-request = requests.get(f"{os.environ['API_IP']}/scrape/news/dfd6e216-808b-4ed7-8fef-0cf7ca9776e6")
+site_id = "dfd6e216-808b-4ed7-8fef-0cf7ca9776e6"
+
+request = requests.get(f"{os.environ['API_IP']}/scrape/news/{site_id}")
 search_words = request.json()
 
 with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/PR/Pr_CbnCuritiba.json") as f:
@@ -84,7 +86,8 @@ class PrCbnCuritibaSpider(scrapy.Spider):
                         title=title,
                         content=content,
                         link=response.url,
-                        users=found_names
+                        users=found_names,
+                        site_id=site_id
                     )
                     yield item
                     if item is not None:
@@ -93,9 +96,10 @@ class PrCbnCuritibaSpider(scrapy.Spider):
                             "title": item['title'],
                             "content": [item['content']],
                             "link": item['link'],
-                            "users": item['users']
+                            "users": item['users'],
+                            "site_id": item['site_id']
                         }
-                        file_path = f"Spiders/Results/{self.name}_{timestamp}.json"
+                        file_path = f"/home/scrapeops/axioon-scrape/Spiders/Results/{self.name}_{timestamp}.json"
                         if not os.path.isfile(file_path):
                             with open(file_path, "w") as f:
                                 json.dump([], f)

@@ -11,3 +11,4 @@ class articleItem(Item):
     content = Field()
     link = Field()
     users = Field()
+    site_id = Field()

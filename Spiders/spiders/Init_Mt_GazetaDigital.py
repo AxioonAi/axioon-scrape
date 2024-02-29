@@ -38,8 +38,10 @@ search_limit = datetime.strptime(search_limit.strftime("%d/%m/%Y"), "%d/%m/%Y")
 
 main_url = "https://www.gazetadigital.com.br/includes/"
 
+site_id = "9d2d36c0-8cc3-4a27-a59b-5291a5e27140"
+
 # INIT API ROUTE
-request = requests.get(f"{os.environ['API_IP']}/scrape/without/news/9d2d36c0-8cc3-4a27-a59b-5291a5e27140")
+request = requests.get(f"{os.environ['API_IP']}/scrape/without/news/{site_id}")
 search_words = request.json()
 
 with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/MT/Mt_GazetaDigital.json") as f:
@@ -82,7 +84,8 @@ class InitMtGazetadigitalSpider(scrapy.Spider):
                         title=title,
                         content=content,
                         link=response.url,
-                        users=found_names
+                        users=found_names,
+                        site_id=site_id
                     )
                     yield item
                     if item is not None:
@@ -91,9 +94,10 @@ class InitMtGazetadigitalSpider(scrapy.Spider):
                             "title": item['title'],
                             "content": [item['content']],
                             "link": item['link'],
-                            "users": item['users']
+                            "users": item['users'],
+                            "site_id": item['site_id']
                         }
-                        file_path = f"Spiders/Results/{self.name}_{timestamp}.json"
+                        file_path = f"/home/scrapeops/axioon-scrape/Spiders/Results/{self.name}_{timestamp}.json"
                         if not os.path.isfile(file_path):
                             with open(file_path, "w") as f:
                                 json.dump([], f)
