@@ -1,0 +1,8 @@
+{
+  "article": "div.bastian-page div._evg div._evt",
+  "link": "h2 a::attr(href)",
+  "next_page": "",
+  "updated": "p.content-publication-data__updated time::text",
+  "title": "h1.content-head__title::text",
+  "content": "article"
+}

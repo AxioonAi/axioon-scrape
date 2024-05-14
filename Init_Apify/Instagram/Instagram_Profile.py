@@ -29,18 +29,9 @@ timestamp = datetime.timestamp(now)
 last_week = date.today() - timedelta(days=7)
 
 # INIT API ROUTE
-# input = requests.get(f"{os.environ['API_IP']}/scrape/without/instagram")
+input = requests.get(f"{os.environ['API_IP']}/scrape/without/instagram")
 
-# input = input.json()
-
-input = {
-  "profiles": [
-    {
-      "instagram": "amiltonfilhooficial",
-      "id": "bef3421d-8c74-4758-8aaf-6e898e1f26b1"
-    }
-  ]
-}
+input = input.json()
 
 input = input["profiles"]
 
