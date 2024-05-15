@@ -1,14 +1,11 @@
+from datetime import datetime, date, timedelta
 from botocore.exceptions import ClientError
 from apify_client import ApifyClient
-
-from datetime import datetime, date, timedelta
 import requests
 import logging
 import boto3
 import json
 import os
-
-
 
 def upload_file(file_name, bucket, object_name=None):
     if object_name is None:
@@ -22,8 +19,6 @@ def upload_file(file_name, bucket, object_name=None):
         logging.error(e)
         return False
     return True
-
-
 
 now = datetime.now()
 timestamp = datetime.timestamp(now)

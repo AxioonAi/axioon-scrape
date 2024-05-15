@@ -7,8 +7,6 @@ import boto3
 import json
 import os
 
-
-
 def upload_file(file_name, bucket, object_name=None):
     if object_name is None:
         object_name = os.path.basename(file_name)
@@ -21,7 +19,6 @@ def upload_file(file_name, bucket, object_name=None):
         logging.error(e)
         return False
     return True
-
 
 now = datetime.now()
 timestamp = datetime.timestamp(now)
@@ -40,7 +37,7 @@ facebook_ids = [item["id"] for item in input]
 client = ApifyClient(os.environ['APIFY_KEY'])
 
 run_input = {
-    "resultsLimit": 20,
+    "resultsLimit": 1000,
     "onlyPostsNewerThan": yesterday,
     "startUrls": [
         { "url": f"https://www.facebook.com/{facebook_name}/" } for facebook_name in facebook_names
@@ -55,10 +52,10 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     json_array.append(json.loads(json_data))
     
     for item in json_array:
-        if item["url"]:
+        if item["facebookUrl"]:
             posts_set.add(item["url"])
         for facebook_name, facebook_id in zip(facebook_names, facebook_ids):
-            if item["url"].lower() == f"https://www.facebook.com/{facebook_name}/".lower():
+            if item["facebookUrl"].lower() == f"https://www.facebook.com/{facebook_name}/".lower():
                 item["facebook_id"] = facebook_id
         
     json_str = json.dumps(json_array, indent=4, ensure_ascii=False)

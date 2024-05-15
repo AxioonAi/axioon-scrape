@@ -27,20 +27,12 @@ def upload_file(file_name, bucket, object_name=None):
 
 now = datetime.now()
 timestamp = datetime.timestamp(now)
-last_week = date.today() - timedelta(days=7)
+last_week = date.today() - timedelta(days=60)
 
 # INIT API ROUTE
-# input = requests.get(f"{os.environ['API_IP']}/scrape/without/instagram")
+input = requests.get(f"{os.environ['API_IP']}/scrape/without/instagram")
 
-# input = input.json()
-input = {
-  "profiles": [
-    {
-      "instagram": "amiltonfilhooficial",
-      "id": "bef3421d-8c74-4758-8aaf-6e898e1f26b1"
-    }
-  ]
-}
+input = input.json()
 
 input = input["profiles"]
 
@@ -52,7 +44,7 @@ client = ApifyClient(os.environ['APIFY_KEY'])
 
 run_input = {
     "username": [f"{instagram_name}" for instagram_name in instagram_names],
-    "resultsLimit": 100,
+    "resultsLimit": 20,
 }
 
 run = client.actor("zTSjdcGqjg6KEIBlt").call(run_input=run_input)
@@ -77,12 +69,12 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     posts_array = list(posts_set)
     posts_str = json.dumps(posts_array, indent=4, ensure_ascii=False)
     
-with open ("Init_Apify/Results/Instagram/Instagram_Mentions.json", "w") as f:
+with open ("/home/scrapeops/axioon-scrape/Init_Apify/Results/Instagram/Instagram_Mentions.json", "w") as f:
     f.write(json_str)
 
-with open("Init_Apify/Results/Instagram/Instagram_Mentions_Urls.json", "w") as f:
+with open("/home/scrapeops/axioon-scrape/Init_Apify/Results/Instagram/Instagram_Mentions_Urls.json", "w") as f:
     f.write(posts_str)
     
-upload_file("Init_Apify/Results/Instagram/Instagram_Mentions.json", "axioon", f"Apify/Instagram/Mentions/Instagram_Mentions_{timestamp}.json")
+upload_file("/home/scrapeops/axioon-scrape/Init_Apify/Results/Instagram/Instagram_Mentions.json", "axioon", f"Apify/Instagram/Mentions/Instagram_Mentions_{timestamp}.json")
 
 file_name = requests.post(f"{os.environ['API_IP']}/webhook/instagram/mentions", json={"records": f"Apify/Instagram/Mentions/Instagram_Mentions_{timestamp}.json"})

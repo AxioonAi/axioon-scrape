@@ -43,7 +43,7 @@ run_input = {
     "disableCheerioBoost": False,
     "disableEnrichAuthorStats": False,
     "profiles": [tiktok_name for tiktok_name in tiktok_names],
-    "resultsPerPage": 20,
+    "resultsPerPage": 1000,
     "scrapeLastNDays": 1,
     "shouldDownloadCovers": False,
     "shouldDownloadSlideshowImages": False,
@@ -60,11 +60,12 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     json_array.append(json.loads(json_data))
     
     for item in json_array:
-        if item["webVideoUrl"]:
-            posts_set.add(item["webVideoUrl"])
-            for tiktok_name, tiktok_id in zip(tiktok_names, tiktok_ids):
-                if tiktok_name.lower() in item["webVideoUrl"].lower():
-                    item["tiktok_id"] = tiktok_id
+        if "webVideoUrl" in item:
+            if item["webVideoUrl"]:
+                posts_set.add(item["webVideoUrl"])
+                for tiktok_name, tiktok_id in zip(tiktok_names, tiktok_ids):
+                    if tiktok_name.lower() in item["webVideoUrl"].lower():
+                        item["tiktok_id"] = tiktok_id
 
     json_str = json.dumps(json_array, ensure_ascii=False, indent=4)
     posts_array = list(posts_set)

@@ -25,7 +25,7 @@ def upload_file(file_name, bucket, object_name=None):
 
 now = datetime.now()
 timestamp = datetime.timestamp(now)
-last_week = date.today() - timedelta(days=7)
+last_week = date.today() - timedelta(days=60)
 
 # INIT API ROUTE
 input = requests.get(f"{os.environ['API_IP']}/scrape/without/youtube")

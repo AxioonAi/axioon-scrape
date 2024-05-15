@@ -30,18 +30,9 @@ timestamp = datetime.timestamp(now)
 last_two_months = date.today() - timedelta(days=60)
 
 # INIT API ROUTE
-# input = requests.get(f"{os.environ['API_IP']}/scrape/without/instagram")
+input = requests.get(f"{os.environ['API_IP']}/scrape/without/instagram")
 
-# input = input.json()
-
-input = {
-  "profiles": [
-    {
-      "instagram": "amiltonfilhooficial",
-      "id": "bef3421d-8c74-4758-8aaf-6e898e1f26b1"
-    }
-  ]
-}
+input = input.json()
 
 input = input["profiles"]
 
@@ -70,22 +61,23 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     json_array.append(json.loads(json_data))
     
     for item in json_array:
-        if item["url"]:
-            posts_set.add(item["url"])
-        for instagram_name, instagram_id in zip(instagram_names, instagram_ids):
-            if item["ownerUsername"].lower() == instagram_name.lower():
-                item["instagram_id"] = instagram_id
-                
+        if "url" in item:
+            if item["url"]:
+                posts_set.add(item["url"])
+            for instagram_name, instagram_id in zip(instagram_names, instagram_ids):
+                if item["ownerUsername"].lower() == instagram_name.lower():
+                    item["instagram_id"] = instagram_id
+                    
     json_str = json.dumps(json_array, indent=4, ensure_ascii=False)
     posts_array = list(posts_set)
     posts_str = json.dumps(posts_array, indent=4, ensure_ascii=False)
 
-with open("Init_Apify/Results/Instagram/Instagram_Posts.json", "w") as f:
+with open("/home/scrapeops/axioon-scrape/Init_Apify/Results/Instagram/Instagram_Posts.json", "w") as f:
     f.write(json_str)
     
-with open("Init_Apify/Results/Instagram/Instagram_Posts_Urls.json", "w") as f:
+with open("/home/scrapeops/axioon-scrape/Init_Apify/Results/Instagram/Instagram_Posts_Urls.json", "w") as f:
     f.write(posts_str)
     
-upload_file("Init_Apify/Results/Instagram/Instagram_Posts.json", "axioon", f"Apify/Instagram/Posts/Instagram_Posts_{timestamp}.json")
+upload_file("/home/scrapeops/axioon-scrape/Init_Apify/Results/Instagram/Instagram_Posts.json", "axioon", f"Apify/Instagram/Posts/Instagram_Posts_{timestamp}.json")
 
 file_name = requests.post(f"{os.environ['API_IP']}/webhook/instagram/posts", json={"records": f"Apify/Instagram/Posts/Instagram_Posts_{timestamp}.json"})
