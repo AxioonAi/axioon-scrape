@@ -54,9 +54,9 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     for item in json_array:
         if item["facebookUrl"]:
             posts_set.add(item["url"])
-        for facebook_name, facebook_id in zip(facebook_names, facebook_ids):
-            if item["facebookUrl"].lower() == f"https://www.facebook.com/{facebook_name}/".lower():
-                item["facebook_id"] = facebook_id
+            for facebook_name, facebook_id in zip(facebook_names, facebook_ids):
+                if item["facebookUrl"].lower() == f"https://www.facebook.com/{facebook_name}/".lower():
+                    item["facebook_id"] = facebook_id
         
     json_str = json.dumps(json_array, indent=4, ensure_ascii=False)
     posts_array = list(posts_set)
