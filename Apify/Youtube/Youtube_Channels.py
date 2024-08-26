@@ -23,7 +23,7 @@ def upload_file(file_name, bucket, object_name=None):
 
 now = datetime.now()
 timestamp = datetime.timestamp(now)
-last_week = date.today() - timedelta(days=1)
+last_week = date.today() - timedelta(days=7)
 
 input = requests.get(f"{os.environ['API_IP']}/scrape/youtube")
 
@@ -41,7 +41,7 @@ run_input = {
     "maxResultStreams": 0,
     "maxResults": 1,
     "maxResultsShorts": 0,
-    "startUrls": [{"url": f"https://www.youtube.com/@{channel_name}"} for channel_name in channel_names]
+    "startUrls": [{"url": f"https://www.youtube.com/{channel_name}"} for channel_name in channel_names]
 }
 
 run = client.actor("67Q6fmd8iedTVcCwY").call(run_input=run_input)
@@ -53,14 +53,14 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     
     for item in json_array:
         for channel_name, channel_id in zip(channel_names, channel_ids):
-            if item["inputChannelUrl"].lower() == f"https://www.youtube.com/@{channel_name}".lower():
+            if item["inputChannelUrl"] in channel_name:
                 item["channel_id"] = channel_id
                 
     json_str = json.dumps(json_array, indent=4, ensure_ascii=False)
 
-with open("/home/scrapeops/axioon-scrape/Apify/Results/Youtube/Youtube_Channel.json", "w") as f:
+with open(f"Apify/Results/Youtube/Youtube_Channels_{timestamp}.json", "w") as f:
     f.write(json_str)
     
-upload_file("/home/scrapeops/axioon-scrape/Apify/Results/Youtube/Youtube_Channel.json", "axioon", f"Apify/YouTube/Channels/YouTube_Channels_{timestamp}.json")
+upload_file(f"Apify/Results/Youtube/Youtube_Channels_{timestamp}.json", "axioon", f"Apify/YouTube/Channels/YouTube_Channels_{timestamp}.json")
 
 file_name = requests.post(f"{os.environ['API_IP']}/webhook/youtube/channel", json={"records": f"Apify/YouTube/Channels/YouTube_Channels_{timestamp}.json"})

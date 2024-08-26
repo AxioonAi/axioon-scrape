@@ -24,7 +24,7 @@ def upload_file(file_name, bucket, object_name=None):
     return True
 now = datetime.now()
 timestamp = datetime.timestamp(now)
-yesterday = date.today() - timedelta(days=1)
+yesterday = date.today() - timedelta(days=7)
 
 input = requests.get(f"{os.environ['API_IP']}/scrape/youtube")
 
@@ -44,7 +44,7 @@ run_input = {
     "proxySettings": {
         "useApifyProxy": True
     },
-    "start_urls": [{"url": f"https://www.youtube.com/@{channel_name}"} for channel_name in channel_names]
+    "start_urls": [{"url": f"https://www.youtube.com/{channel_name}"} for channel_name in channel_names]
 }
 
 run = client.actor("TyjYgGDGcTNVmil8z").call(run_input=run_input)
@@ -59,19 +59,19 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
         if item["url"]:
             posts_set.add(item["url"])
         for channel_name, channel_id in zip(channel_names, channel_ids):
-            if item["inputChannelUrl"].lower() == f"https://www.youtube.com/@{channel_name}/about".lower():
+            if item["channelShortName"] in channel_name:
                 item["channel_id"] = channel_id
                 
     json_str = json.dumps(json_array, indent=4, ensure_ascii=False)
     posts_array = list(posts_set)
     posts_str = json.dumps(posts_array, indent=4, ensure_ascii=False)
 
-with open("/home/scrapeops/axioon-scrape/Apify/Results/Youtube/Youtube_Videos.json", "w") as f:
+with open("Apify/Results/Youtube/Youtube_Videos.json", "w") as f:
     f.write(json_str)
 
-with open("/home/scrapeops/axioon-scrape/Apify/Results/Youtube/Youtube_Videos_Urls.json", "w") as f:
+with open("Apify/Results/Youtube/Youtube_Videos_Urls.json", "w") as f:
     f.write(posts_str)
     
-upload_file(f"/home/scrapeops/axioon-scrape/Apify/Results/Youtube/Youtube_Videos.json", "axioon", f"Apify/YouTube/Videos/YouTube_Videos_{timestamp}.json")
+upload_file(f"Apify/Results/Youtube/Youtube_Videos.json", "axioon", f"Apify/YouTube/Videos/YouTube_Videos_{timestamp}.json")
 
 file_name = requests.post(f"{os.environ['API_IP']}/webhook/youtube/video", json={"records": f"Apify/YouTube/Videos/YouTube_Videos_{timestamp}.json"})
