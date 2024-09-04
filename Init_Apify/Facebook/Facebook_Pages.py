@@ -58,7 +58,7 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     
     json_str = json.dumps(json_array, indent=4, ensure_ascii=False)
     
-with open("/home/scrapeops/axioon-scrape/Init_Apify/Results/Facebook/Facebook_Pages.json", "w") as f:
+with open("/home/scrapeops/axioon-scrape/Init_Apify/Results/Facebook/Facebook_Pages.json", "w", encoding="utf-8") as f:
     f.write(json_str)
     
 upload_file(f"/home/scrapeops/axioon-scrape/Init_Apify/Results/Facebook/Facebook_Pages.json", "axioon", f"Apify/Facebook/Pages/Facebook_Pages_{timestamp}.json")

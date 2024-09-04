@@ -24,7 +24,7 @@ def upload_file(file_name, bucket, object_name=None):
     return True
 now = datetime.now()
 timestamp = datetime.timestamp(now)
-last_week = date.today() - timedelta(days=7)
+last_week = date.today() - timedelta(days=30)
 
 with open("Apify/Results/Youtube/Youtube_Videos_Urls.json", "r") as f:
     input = json.load(f)
@@ -47,7 +47,7 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
                 
     json_str = json.dumps(json_array, indent=4, ensure_ascii=False)
 
-with open("Apify/Results/Youtube/Youtube_Comments.json", "w") as f:
+with open("Apify/Results/Youtube/Youtube_Comments.json", "w", encoding="utf-8") as f:
     f.write(json_str)
     
 upload_file("Apify/Results/Youtube/Youtube_Comments.json", "axioon", f"Apify/YouTube/Comments/YouTube_Comments_{timestamp}.json")

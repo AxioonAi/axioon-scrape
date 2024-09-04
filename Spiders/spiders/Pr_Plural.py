@@ -35,7 +35,7 @@ timestamp = datetime.timestamp(now)
 today = date.today().strftime("%d/%m/%Y")
 today = datetime.strptime(today, "%d/%m/%Y")
 
-search_limit = date.today() - timedelta(days=1)
+search_limit = date.today() - timedelta(days=30)
 search_limit = datetime.strptime(search_limit.strftime("%d/%m/%Y"), "%d/%m/%Y")
 
 site_id = "71eec03a-0fc6-4595-baa7-fa7c1433cf82"
@@ -98,7 +98,7 @@ class PrPluralSpider(scrapy.Spider):
                         }
                         file_path = f"/home/scrapeops/axioon-scrape/Spiders/Results/{self.name}_{timestamp}.json"
                         if not os.path.isfile(file_path):
-                            with open(file_path, "w") as f:
+                            with open(file_path, "w", encoding="utf-8") as f:
                                 json.dump([], f)
 
                         with open(file_path, "r") as f:
@@ -106,7 +106,7 @@ class PrPluralSpider(scrapy.Spider):
 
                         data.append(article_dict)
 
-                        with open(file_path, "w") as f:
+                        with open(file_path, "w", encoding="utf-8") as f:
                             json.dump(data, f, ensure_ascii=False)
                             
                         upload_file(f"/home/scrapeops/axioon-scrape/Spiders/Results/{self.name}_{timestamp}.json", "axioon", f"News/PR/{self.name}_{timestamp}.json")

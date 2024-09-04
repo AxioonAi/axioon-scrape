@@ -100,7 +100,7 @@ class InitGoGoiasEmDiaSpider(scrapy.Spider):
                         }
                         file_path = f"/home/scrapeops/axioon-scrape/Spiders/Results/{self.name}_{timestamp}.json"
                         if not os.path.isfile(file_path):
-                            with open(file_path, "w") as f:
+                            with open(file_path, "w", encoding="utf-8") as f:
                                 json.dump([], f)
 
                         with open(file_path, "r") as f:
@@ -108,7 +108,7 @@ class InitGoGoiasEmDiaSpider(scrapy.Spider):
 
                         data.append(article_dict)
 
-                        with open(file_path, "w") as f:
+                        with open(file_path, "w", encoding="utf-8") as f:
                             json.dump(data, f, ensure_ascii=False)
                             
                         upload_file(f"/home/scrapeops/axioon-scrape/Spiders/Results/{self.name}_{timestamp}.json", "axioon", f"News/GO/{self.name}_{timestamp}.json")

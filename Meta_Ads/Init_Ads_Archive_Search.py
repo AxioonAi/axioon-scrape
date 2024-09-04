@@ -78,7 +78,7 @@ for item in search_amount:
                
 result_str = json.dumps(result, ensure_ascii=False, indent=4)
     
-with open(f"/home/scrapeops/axioon-scrape/Results/Meta_Ads_Results_{timestamp}.json", "w") as f:
+with open(f"/home/scrapeops/axioon-scrape/Results/Meta_Ads_Results_{timestamp}.json", "w", encoding="utf-8") as f:
     f.write(result_str)
 
 upload_file(f"/home/scrapeops/axioon-scrape/Results/Meta_Ads_Results_{timestamp}.json", "axioon", f"Meta_Ads/Meta_Ads_Results_{timestamp}.json")

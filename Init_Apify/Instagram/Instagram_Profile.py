@@ -64,7 +64,7 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     
     json_str = json.dumps(json_array, indent=4, ensure_ascii=False)
 
-with open("/home/scrapeops/axioon-scrape/Init_Apify/Results/Instagram/Instagram_Profiles.json", "w") as f:
+with open("/home/scrapeops/axioon-scrape/Init_Apify/Results/Instagram/Instagram_Profiles.json", "w", encoding="utf-8") as f:
     f.write(json_str)
     
 upload_file("/home/scrapeops/axioon-scrape/Init_Apify/Results/Instagram/Instagram_Profiles.json", "axioon", f"Apify/Instagram/Profiles/Instagram_Profiles_{timestamp}.json")

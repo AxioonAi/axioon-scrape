@@ -44,7 +44,7 @@ client = ApifyClient(os.environ['APIFY_KEY'])
 
 run_input = {
     "postURLs": comments_input,
-    "commentsPerPost": 1000,
+    "commentsPerPost": 100,
     "maxRepliesPerComment": 0,
 }
 run = client.actor("BDec00yAmCm1QbMEI").call(run_input=run_input)
@@ -56,7 +56,7 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
 
     json_str = json.dumps(json_array, ensure_ascii=False, indent=4)
 
-with open(f"Apify/Results/TikTok/TikTok_Comments.json", "w") as f:
+with open(f"Apify/Results/TikTok/TikTok_Comments.json", "w", encoding="utf-8") as f:
     f.write(json_str)
     
 upload_file(f"Apify/Results/TikTok/TikTok_Comments.json", "axioon", f"Apify/TikTok/Comments/TikTok_Comments_{timestamp}.json")

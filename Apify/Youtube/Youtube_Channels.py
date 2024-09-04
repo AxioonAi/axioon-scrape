@@ -23,7 +23,7 @@ def upload_file(file_name, bucket, object_name=None):
 
 now = datetime.now()
 timestamp = datetime.timestamp(now)
-last_week = date.today() - timedelta(days=7)
+last_week = date.today() - timedelta(days=30)
 
 input = requests.get(f"{os.environ['API_IP']}/scrape/youtube")
 
@@ -58,7 +58,7 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
                 
     json_str = json.dumps(json_array, indent=4, ensure_ascii=False)
 
-with open(f"Apify/Results/Youtube/Youtube_Channels_{timestamp}.json", "w") as f:
+with open(f"Apify/Results/Youtube/Youtube_Channels_{timestamp}.json", "w", encoding="utf-8") as f:
     f.write(json_str)
     
 upload_file(f"Apify/Results/Youtube/Youtube_Channels_{timestamp}.json", "axioon", f"Apify/YouTube/Channels/YouTube_Channels_{timestamp}.json")

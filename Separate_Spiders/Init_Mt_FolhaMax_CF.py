@@ -45,7 +45,7 @@
 # today = date.today().strftime("%d/%m/%Y")
 # today = datetime.strptime(today, "%d/%m/%Y")
 
-# search_limit = date.today() - timedelta(days=1)
+# search_limit = date.today() - timedelta(days=30)
 # search_limit = datetime.strptime(search_limit.strftime("%d/%m/%Y"), "%d/%m/%Y")
 
 # # INIT API ROUTE
@@ -140,7 +140,7 @@
 # 						})
 # 		else:
 # 			unique_item = list({v['link']:v for v in item}.values())
-# 			with open("/home/scrapeops/axioon-scrape/Spiders/Results/Mt_FolhaMax.json", "w") as f:
+# 			with open("/home/scrapeops/axioon-scrape/Spiders/Results/Mt_FolhaMax.json", "w", encoding="utf-8") as f:
 # 				json.dump(unique_item, f, indent=4, ensure_ascii=False)
 # 			upload_file("/home/scrapeops/axioon-scrape/Spiders/Results/Mt_FolhaMax.json", "axioon", f"News/MT/Mt_FolhaMax_{timestamp}.json")
 # 			file_name = requests.post(f"{os.environ['API_IP']}/webhook/news", json={"records": f"News/MT/Mt_FolhaMax_{timestamp}.json"})
