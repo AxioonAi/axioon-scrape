@@ -44,7 +44,7 @@ site_id = "0023956f-c805-4928-a53c-56c19abc94ea"
 request = requests.get(f"{os.environ['API_IP']}/scrape/without/news/{site_id}")
 search_words = request.json()
 
-with open("Spiders/CSS_Selectors/PR/Pr_CamaraMunicipalCuritiba.json") as f:
+with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/PR/Pr_CamaraMunicipalCuritiba.json") as f:
     search_terms = json.load(f)
 
 main_url = "https://www.curitiba.pr.leg.br/informacao/noticias?b_start:int="

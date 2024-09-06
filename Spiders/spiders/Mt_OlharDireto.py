@@ -43,7 +43,7 @@ site_id = "9649b622-c704-43f8-a7ed-c5d29502ddfb"
 request = requests.get(f"{os.environ['API_IP']}/scrape/news/{site_id}")
 search_words = request.json()
 
-with open("Spiders/CSS_Selectors/MT/Mt_OlharDireto.json") as f:
+with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/MT/Mt_OlharDireto.json") as f:
     search_terms = json.load(f)
 
 class MtOlhardiretoSpider(scrapy.Spider):

@@ -50,7 +50,7 @@ search_limit = datetime.strptime(search_limit.strftime("%d/%m/%Y"), "%d/%m/%Y")
 request = requests.get(f"{os.environ['API_IP']}/scrape/news/7824f609-5b1c-4040-8c65-f3d56ab9e111")
 search_words = request.json()
 
-with open("Spiders/CSS_Selectors/GO/Go_G1.json") as f:
+with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/GO/Go_G1.json") as f:
     search_terms = json.load(f)
 
 main_url = "https://g1.globo.com/politica"

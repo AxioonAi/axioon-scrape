@@ -42,7 +42,7 @@ site_id = "1c9f1968-7049-425d-9a7d-a45a663dfcc6"
 request = requests.get(f"{os.environ['API_IP']}/scrape/without/news/{site_id}")
 search_words = request.json()
 
-with open("Spiders/CSS_Selectors/MT/Mt_CenarioMt.json") as f:
+with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/MT/Mt_CenarioMt.json") as f:
     search_terms = json.load(f)
 
 class InitMtCenariomtSpider(scrapy.Spider):

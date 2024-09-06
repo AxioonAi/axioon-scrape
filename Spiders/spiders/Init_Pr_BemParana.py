@@ -44,7 +44,7 @@ site_id = "3493c0b0-f8ae-4069-bc97-9a0a5c7d8338"
 request = requests.get(f"{os.environ['API_IP']}/scrape/without/news/{site_id}")
 search_words = request.json()
 
-with open("Spiders/CSS_Selectors/PR/Pr_BemParana.json") as f:
+with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/PR/Pr_BemParana.json") as f:
     search_terms = json.load(f)
 
 main_url = "https://www.bemparana.com.br/noticias/politica/"

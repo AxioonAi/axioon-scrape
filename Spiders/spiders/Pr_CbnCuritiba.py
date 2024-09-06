@@ -43,7 +43,7 @@ site_id = "dfd6e216-808b-4ed7-8fef-0cf7ca9776e6"
 request = requests.get(f"{os.environ['API_IP']}/scrape/news/{site_id}")
 search_words = request.json()
 
-with open("Spiders/CSS_Selectors/PR/Pr_CbnCuritiba.json") as f:
+with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/PR/Pr_CbnCuritiba.json") as f:
     search_terms = json.load(f)
 
 main_url = "https://cbncuritiba.com.br/page/"

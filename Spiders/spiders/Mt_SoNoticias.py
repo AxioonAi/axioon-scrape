@@ -40,7 +40,7 @@ site_id = "1f225ec9-b50a-412f-b437-30f3889fe077"
 request = requests.get(f"{os.environ['API_IP']}/scrape/news/{site_id}")
 search_words = request.json()
 
-with open("Spiders/CSS_Selectors/MT/Mt_SoNoticias.json") as f:
+with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/MT/Mt_SoNoticias.json") as f:
     search_terms = json.load(f)
     
 class MtSonoticiasSpider(scrapy.Spider):

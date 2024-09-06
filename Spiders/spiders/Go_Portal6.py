@@ -44,7 +44,7 @@ site_id = "fd947f48-4b55-4502-9823-79d454332964"
 request = requests.get(f"{os.environ['API_IP']}/scrape/news/{site_id}")
 search_words = request.json()
 
-with open("Spiders/CSS_Selectors/GO/Go_Portal6.json") as f:
+with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/GO/Go_Portal6.json") as f:
     search_terms = json.load(f)
 
 class GoPortal6Spider(scrapy.Spider):

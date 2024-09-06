@@ -44,7 +44,7 @@ site_id = "9d2d36c0-8cc3-4a27-a59b-5291a5e27140"
 request = requests.get(f"{os.environ['API_IP']}/scrape/without/news/{site_id}")
 search_words = request.json()
 
-with open("Spiders/CSS_Selectors/MT/Mt_GazetaDigital.json") as f:
+with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/MT/Mt_GazetaDigital.json") as f:
     search_terms = json.load(f)
 
 class InitMtGazetadigitalSpider(scrapy.Spider):

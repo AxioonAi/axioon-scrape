@@ -44,7 +44,7 @@ request = requests.get(f"{os.environ['API_IP']}/scrape/without/news/{site_id}")
 search_words = request.json()
 
 # INIT API ROUTE
-with open("Spiders/CSS_Selectors/PR/Pr_CbnCuritiba.json") as f:
+with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/PR/Pr_CbnCuritiba.json") as f:
     search_terms = json.load(f)
 
 main_url = "https://cbncuritiba.com.br/page/"

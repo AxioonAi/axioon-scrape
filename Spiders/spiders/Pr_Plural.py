@@ -43,7 +43,7 @@ site_id = "71eec03a-0fc6-4595-baa7-fa7c1433cf82"
 request = requests.get(f"{os.environ['API_IP']}/scrape/news/{site_id}")
 search_words = request.json()
 
-with open("Spiders/CSS_Selectors/PR/Pr_Plural.json") as f:
+with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/PR/Pr_Plural.json") as f:
     search_terms = json.load(f)
 
 main_url = "https://www.plural.jor.br/noticias/"
