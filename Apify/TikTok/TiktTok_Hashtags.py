@@ -26,7 +26,7 @@ def upload_file(file_name, bucket, object_name=None):
 
 now = datetime.now()
 timestamp = datetime.timestamp(now)
-yesterday = date.today() - timedelta(days=15)
+yesterday = date.today() - timedelta(days=1)
 
 input = requests.get(f"{os.environ['API_IP']}/scrape/hashtag")
 
@@ -69,12 +69,12 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     posts_array = list(posts_set)
     posts_str = json.dumps(posts_array, ensure_ascii=False, indent=4)
     
-with open("Apify/Results/TikTok/TikTok_Hashtags.json", "w", encoding="utf-8") as f:
+with open("/home/scrapeops/axioon-scrape/Apify/Results/TikTok/TikTok_Hashtags.json", "w", encoding="utf-8") as f:
     f.write(json_str)
     
-with open(f"Apify/Results/TikTok/TikTok_Hashtags_Urls.json", "w", encoding="utf-8") as f:
+with open(f"/home/scrapeops/axioon-scrape/Apify/Results/TikTok/TikTok_Hashtags_Urls.json", "w", encoding="utf-8") as f:
     f.write(posts_str)
     
-upload_file("Apify/Results/TikTok/TikTok_Hashtags.json", "axioon", f"Apify/TikTok/Hashtags/TikTok_Hashtags_{timestamp}.json")
+upload_file("/home/scrapeops/axioon-scrape/Apify/Results/TikTok/TikTok_Hashtags.json", "axioon", f"Apify/TikTok/Hashtags/TikTok_Hashtags_{timestamp}.json")
 
 file_name = requests.post(f"{os.environ['API_IP']}/webhook/tiktok/hashtag/mentions", json={"records": f"Apify/TikTok/Hashtags/TikTok_Hashtags_{timestamp}.json"})

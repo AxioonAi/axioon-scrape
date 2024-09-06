@@ -27,14 +27,13 @@ def upload_file(file_name, bucket, object_name=None):
 
 now = datetime.now()
 timestamp = datetime.timestamp(now)
-last_week = date.today() - timedelta(days=60)
+last_week = date.today() - timedelta(days=30)
 
-# INIT API ROUTE
 input = requests.get(f"{os.environ['API_IP']}/scrape/without/instagram")
 
 input = input.json()
 
-input = input["profiles"]
+input = input["instagram"]
 
 instagram_names = [item["instagram"] for item in input]
 
@@ -44,7 +43,7 @@ client = ApifyClient(os.environ['APIFY_KEY'])
 
 run_input = {
     "username": [f"{instagram_name}" for instagram_name in instagram_names],
-    "resultsLimit": 20,
+    "resultsLimit": 30,
 }
 
 run = client.actor("zTSjdcGqjg6KEIBlt").call(run_input=run_input)
@@ -69,12 +68,12 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     posts_array = list(posts_set)
     posts_str = json.dumps(posts_array, indent=4, ensure_ascii=False)
     
-with open ("Init_Apify/Results/Instagram/Instagram_Mentions.json", "w", encoding="utf-8") as f:
+with open ("/home/scrapeops/axioon-scrape/Init_Apify/Results/Instagram/Instagram_Mentions.json", "w", encoding="utf-8") as f:
     f.write(json_str)
 
-with open("Init_Apify/Results/Instagram/Instagram_Mentions_Urls.json", "w", encoding="utf-8") as f:
+with open("/home/scrapeops/axioon-scrape/Init_Apify/Results/Instagram/Instagram_Mentions_Urls.json", "w", encoding="utf-8") as f:
     f.write(posts_str)
     
-upload_file("Init_Apify/Results/Instagram/Instagram_Mentions.json", "axioon", f"Apify/Instagram/Mentions/Instagram_Mentions_{timestamp}.json")
+upload_file("/home/scrapeops/axioon-scrape/Init_Apify/Results/Instagram/Instagram_Mentions.json", "axioon", f"Apify/Instagram/Mentions/Instagram_Mentions_{timestamp}.json")
 
 file_name = requests.post(f"{os.environ['API_IP']}/webhook/instagram/mentions", json={"records": f"Apify/Instagram/Mentions/Instagram_Mentions_{timestamp}.json"})

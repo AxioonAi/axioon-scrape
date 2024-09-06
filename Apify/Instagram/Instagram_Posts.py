@@ -27,7 +27,7 @@ def upload_file(file_name, bucket, object_name=None):
 
 now = datetime.now()
 timestamp = datetime.timestamp(now)
-yesterday = date.today() - timedelta(days=15)
+yesterday = date.today() - timedelta(days=1)
 
 input = requests.get(f"{os.environ['API_IP']}/scrape/instagram")
 
@@ -71,12 +71,12 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     posts_array = list(posts_set)
     posts_str = json.dumps(posts_array, indent=4, ensure_ascii=False)
 
-with open("Apify/Results/Instagram/Instagram_Posts.json", "w", encoding="utf-8") as f:
+with open("/home/scrapeops/axioon-scrape/Apify/Results/Instagram/Instagram_Posts.json", "w", encoding="utf-8") as f:
     f.write(json_str)
     
-with open("Apify/Results/Instagram/Instagram_Posts_Urls.json", "w", encoding="utf-8") as f:
+with open("/home/scrapeops/axioon-scrape/Apify/Results/Instagram/Instagram_Posts_Urls.json", "w", encoding="utf-8") as f:
     f.write(posts_str)
     
-upload_file("Apify/Results/Instagram/Instagram_Posts.json", "axioon", f"Apify/Instagram/Posts/Instagram_Posts_{timestamp}.json")
+upload_file("/home/scrapeops/axioon-scrape/Apify/Results/Instagram/Instagram_Posts.json", "axioon", f"Apify/Instagram/Posts/Instagram_Posts_{timestamp}.json")
 
 file_name = requests.post(f"{os.environ['API_IP']}/webhook/instagram/posts", json={"records": f"Apify/Instagram/Posts/Instagram_Posts_{timestamp}.json"})

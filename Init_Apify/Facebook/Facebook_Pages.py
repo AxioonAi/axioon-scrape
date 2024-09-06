@@ -1,14 +1,11 @@
+from datetime import datetime, date, timedelta
 from botocore.exceptions import ClientError
 from apify_client import ApifyClient
-
-from datetime import datetime
 import requests
 import logging
 import boto3
 import json
 import os
-
-
 
 def upload_file(file_name, bucket, object_name=None):
     if object_name is None:
@@ -23,16 +20,15 @@ def upload_file(file_name, bucket, object_name=None):
         return False
     return True
 
-
-
 now = datetime.now()
 timestamp = datetime.timestamp(now)
+yesterday = date.today() - timedelta(days=30)
 
-# INIT API ROUTE
 input = requests.get(f"{os.environ['API_IP']}/scrape/without/facebook")
+
 input = input.json()
 
-input = input["profiles"]
+input = input["facebook"]
 
 facebook_names = [item["facebook"] for item in input]
 
@@ -40,9 +36,12 @@ facebook_ids = [item["id"] for item in input]
 
 client = ApifyClient(os.environ['APIFY_KEY'])
 
-run_input = { "startUrls": [
+run_input = { 
+    "startUrls": [
         { "url": f"https://www.facebook.com/{facebook_name}/" } for facebook_name in facebook_names
-    ] }
+        ],
+    "onlyPostsNewerThan": yesterday
+    }
 
 run = client.actor("4Hv5RhChiaDk6iwad").call(run_input=run_input)
 
@@ -58,9 +57,9 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     
     json_str = json.dumps(json_array, indent=4, ensure_ascii=False)
     
-with open("Init_Apify/Results/Facebook/Facebook_Pages.json", "w", encoding="utf-8") as f:
+with open("/home/scrapeops/axioon-scrape/Init_Apify/Results/Facebook/Facebook_Pages.json", "w", encoding="utf-8") as f:
     f.write(json_str)
     
-upload_file(f"Init_Apify/Results/Facebook/Facebook_Pages.json", "axioon", f"Apify/Facebook/Pages/Facebook_Pages_{timestamp}.json")
+upload_file(f"/home/scrapeops/axioon-scrape/Init_Apify/Results/Facebook/Facebook_Pages.json", "axioon", f"Apify/Facebook/Pages/Facebook_Pages_{timestamp}.json")
 
 file_name = requests.post(f"{os.environ['API_IP']}/webhook/facebook/profile", json={"records": f"Apify/Facebook/Pages/Facebook_Pages_{timestamp}.json"})

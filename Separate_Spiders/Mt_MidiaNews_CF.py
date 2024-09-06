@@ -35,7 +35,7 @@ timestamp = datetime.timestamp(now)
 today = date.today().strftime("%d/%m/%Y")
 today = datetime.strptime(today, "%d/%m/%Y")
 
-search_limit = date.today() - timedelta(days=15)
+search_limit = date.today() - timedelta(days=1)
 search_limit = datetime.strptime(search_limit.strftime("%d/%m/%Y"), "%d/%m/%Y")
 
 request = requests.get(f"{os.environ['API_IP']}/scrape/news/aeee8db5-4c27-45e3-bdce-d6ee8f71ae90")
@@ -139,9 +139,9 @@ while True:
 
 		else:
 			unique_item = list({v['link']:v for v in item}.values())
-			with open("Spiders/Results/Mt_MidiaNews.json", "w", encoding="utf-8") as f:
+			with open("/home/scrapeops/axioon-scrape/Spiders/Results/Mt_MidiaNews.json", "w", encoding="utf-8") as f:
 				json.dump(unique_item, f, indent=4, ensure_ascii=False)
-			upload_file("Spiders/Results/Mt_MidiaNews.json", "axioon", f"News/MT/Mt_MidiaNews_{timestamp}.json")
+			upload_file("/home/scrapeops/axioon-scrape/Spiders/Results/Mt_MidiaNews.json", "axioon", f"News/MT/Mt_MidiaNews_{timestamp}.json")
 			file_name = requests.post(f"{os.environ['API_IP']}/webhook/news", json={"records": f"News/MT/Mt_MidiaNews_{timestamp}.json"})
 			sys.exit()
     

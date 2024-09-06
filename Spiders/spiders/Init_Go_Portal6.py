@@ -96,7 +96,7 @@ class InitGoPortal6Spider(scrapy.Spider):
                             "users": item['users'],
                             "site_id": item['site_id']
                         }
-                        file_path = f"Spiders/Results/{self.name}_{timestamp}.json"
+                        file_path = f"/home/scrapeops/axioon-scrape/Spiders/Results/{self.name}_{timestamp}.json"
                         if not os.path.isfile(file_path):
                             with open(file_path, "w", encoding="utf-8") as f:
                                 json.dump([], f)
@@ -109,7 +109,7 @@ class InitGoPortal6Spider(scrapy.Spider):
                         with open(file_path, "w", encoding="utf-8") as f:
                             json.dump(data, f, ensure_ascii=False)
                         
-                        upload_file(f"Spiders/Results/{self.name}_{timestamp}.json", "axioon", f"News/GO/{self.name}_{timestamp}.json")
+                        upload_file(f"/home/scrapeops/axioon-scrape/Spiders/Results/{self.name}_{timestamp}.json", "axioon", f"News/GO/{self.name}_{timestamp}.json")
                         file_name = requests.post(f"{os.environ['API_IP']}/webhook/news", json={"records": f"News/GO/{self.name}_{timestamp}.json"})
         else:
             raise scrapy.exceptions.CloseSpider

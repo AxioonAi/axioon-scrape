@@ -26,9 +26,9 @@ def upload_file(file_name, bucket, object_name=None):
 
 now = datetime.now()
 timestamp = datetime.timestamp(now)
-last_week = date.today() - timedelta(days=15)
+last_week = date.today() - timedelta(days=1)
 
-with open("Apify/Results/Instagram/Instagram_Mentions_Urls.json") as f:
+with open("/home/scrapeops/axioon-scrape/Apify/Results/Instagram/Instagram_Mentions_Urls.json") as f:
     input = json.load(f)
 
 client = ApifyClient(os.environ['APIFY_KEY'])
@@ -47,9 +47,9 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
                 
     json_str = json.dumps(json_array, indent=4, ensure_ascii=False)
 
-with open("Apify/Results/Instagram/Instagram_Mentions_Comments.json", "w", encoding="utf-8") as f:
+with open("/home/scrapeops/axioon-scrape/Apify/Results/Instagram/Instagram_Mentions_Comments.json", "w", encoding="utf-8") as f:
     f.write(json_str)
     
-upload_file("Apify/Results/Instagram/Instagram_Mentions_Comments.json", "axioon", f"Apify/Instagram/Mentions_Comments/Instagram_Mentions_Comments_{timestamp}.json")
+upload_file("/home/scrapeops/axioon-scrape/Apify/Results/Instagram/Instagram_Mentions_Comments.json", "axioon", f"Apify/Instagram/Mentions_Comments/Instagram_Mentions_Comments_{timestamp}.json")
 
 file_name = requests.post(f"{os.environ['API_IP']}/webhook/instagram/mentions/comments", json={"records": f"Apify/Instagram/Mentions_Comments/Instagram_Mentions_Comments_{timestamp}.json"})
