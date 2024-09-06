@@ -42,7 +42,7 @@ site_id = "1729be51-db34-4c34-8d06-4c878eade13d"
 request = requests.get(f"{os.environ['API_IP']}/scrape/without/news/{site_id}")
 search_words = request.json()
 
-with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/GO/Go_DmAnapolis.json") as f:
+with open("Spiders/CSS_Selectors/GO/Go_DmAnapolis.json") as f:
     search_terms = json.load(f)
 
 class InitGoDmAnapolisSpider(scrapy.Spider):
@@ -93,7 +93,7 @@ class InitGoDmAnapolisSpider(scrapy.Spider):
                             "users": item['users'],
                             "site_id": item['site_id']
                         }
-                        file_path = f"/home/scrapeops/axioon-scrape/Spiders/Results/{self.name}_{timestamp}.json"
+                        file_path = f"Spiders/Results/{self.name}_{timestamp}.json"
                         if not os.path.isfile(file_path):
                             with open(file_path, "w", encoding="utf-8") as f:
                                 json.dump([], f)
@@ -106,7 +106,7 @@ class InitGoDmAnapolisSpider(scrapy.Spider):
                         with open(file_path, "w", encoding="utf-8") as f:
                             json.dump(data, f, ensure_ascii=False)
 
-                        upload_file(f"/home/scrapeops/axioon-scrape/Spiders/Results/{self.name}_{timestamp}.json", "axioon", f"News/GO/{self.name}_{timestamp}.json")
+                        upload_file(f"Spiders/Results/{self.name}_{timestamp}.json", "axioon", f"News/GO/{self.name}_{timestamp}.json")
                         file_name = requests.post(f"{os.environ['API_IP']}/webhook/news", json={"records": f"News/GO/{self.name}_{timestamp}.json"})
         else:
             raise scrapy.exceptions.CloseSpider

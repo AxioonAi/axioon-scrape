@@ -24,7 +24,7 @@ def upload_file(file_name, bucket, object_name=None):
     return True
 now = datetime.now()
 timestamp = datetime.timestamp(now)
-last_week = date.today() - timedelta(days=30)
+last_week = date.today() - timedelta(days=15)
 
 with open("Apify/Results/Youtube/Youtube_Videos_Urls.json", "r") as f:
     input = json.load(f)

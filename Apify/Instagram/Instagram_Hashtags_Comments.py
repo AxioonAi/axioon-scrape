@@ -27,7 +27,7 @@ def upload_file(file_name, bucket, object_name=None):
 
 now = datetime.now()
 timestamp = datetime.timestamp(now)
-last_week = date.today() - timedelta(days=30)
+last_week = date.today() - timedelta(days=15)
 
 with open("Apify/Results/Instagram/Instagram_Hashtags_Urls.json") as f:
     input = json.load(f)

@@ -44,7 +44,7 @@ request = requests.get(f"{os.environ['API_IP']}/scrape/without/news/{site_id}")
 search_words = request.json()
 
 # INIT API ROUTE
-with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/PR/Pr_CbnCuritiba.json") as f:
+with open("Spiders/CSS_Selectors/PR/Pr_CbnCuritiba.json") as f:
     search_terms = json.load(f)
 
 main_url = "https://cbncuritiba.com.br/page/"
@@ -100,7 +100,7 @@ class InitPrCbnCuritibaSpider(scrapy.Spider):
                             "users": item['users'],
                             "site_id": item['site_id']
                         }
-                        file_path = f"/home/scrapeops/axioon-scrape/Spiders/Results/{self.name}_{timestamp}.json"
+                        file_path = f"Spiders/Results/{self.name}_{timestamp}.json"
                         if not os.path.isfile(file_path):
                             with open(file_path, "w", encoding="utf-8") as f:
                                 json.dump([], f)
@@ -113,7 +113,7 @@ class InitPrCbnCuritibaSpider(scrapy.Spider):
                         with open(file_path, "w", encoding="utf-8") as f:
                             json.dump(data, f, ensure_ascii=False)
                             
-                        upload_file(f"/home/scrapeops/axioon-scrape/Spiders/Results/{self.name}_{timestamp}.json", "axioon", f"News/PR/{self.name}_{timestamp}.json")
+                        upload_file(f"Spiders/Results/{self.name}_{timestamp}.json", "axioon", f"News/PR/{self.name}_{timestamp}.json")
                         file_name = requests.post(f"{os.environ['API_IP']}/webhook/news", json={"records": f"News/PR/{self.name}_{timestamp}.json"})
                      
         else:

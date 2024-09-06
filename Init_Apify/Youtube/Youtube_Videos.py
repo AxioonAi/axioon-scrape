@@ -67,12 +67,12 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     posts_array = list(posts_set)
     posts_str = json.dumps(posts_array, indent=4, ensure_ascii=False)
 
-with open("/home/scrapeops/axioon-scrape/Init_Apify/Results/Youtube/Youtube_Videos.json", "w", encoding="utf-8") as f:
+with open("Init_Apify/Results/Youtube/Youtube_Videos.json", "w", encoding="utf-8") as f:
     f.write(json_str)
 
-with open("/home/scrapeops/axioon-scrape/Init_Apify/Results/Youtube/Youtube_Videos_Urls.json", "w", encoding="utf-8") as f:
+with open("Init_Apify/Results/Youtube/Youtube_Videos_Urls.json", "w", encoding="utf-8") as f:
     f.write(posts_str)
     
-upload_file(f"/home/scrapeops/axioon-scrape/Init_Apify/Results/Youtube/Youtube_Videos.json", "axioon", f"Apify/YouTube/Videos/YouTube_Videos_{timestamp}.json")
+upload_file(f"Init_Apify/Results/Youtube/Youtube_Videos.json", "axioon", f"Apify/YouTube/Videos/YouTube_Videos_{timestamp}.json")
 
 file_name = requests.post(f"{os.environ['API_IP']}/webhook/youtube/video", json={"records": f"Apify/YouTube/Videos/YouTube_Videos_{timestamp}.json"})

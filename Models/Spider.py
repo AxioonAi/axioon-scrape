@@ -44,13 +44,13 @@
 # today = date.today().strftime("%d/%m/%Y")
 # today = datetime.strptime(today, "%d/%m/%Y")
 
-# search_limit = date.today() - timedelta(days=30)
+# search_limit = date.today() - timedelta(days=15)
 # search_limit = datetime.strptime(search_limit.strftime("%d/%m/%Y"), "%d/%m/%Y")
 
 # request = requests.get(f"{os.environ['API_IP']}/scrape/news/SITE_ID")
 # search_words = request.json()
 
-# with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/STATE/STATE_SITENAME.json") as f:
+# with open("Spiders/CSS_Selectors/STATE/STATE_SITENAME.json") as f:
 #     search_terms = json.load(f)
 
 # main_url = ""
@@ -96,7 +96,7 @@
                             #    "link": item['link'],
                             #    "users": item['users']
                             # }
-                            # file_path = f"/home/scrapeops/axioon-scrape/Spiders/Results/{self.name}_{timestamp}.json"
+                            # file_path = f"Spiders/Results/{self.name}_{timestamp}.json"
                             # if not os.path.isfile(file_path):
                             #     with open(file_path, "w", encoding="utf-8") as f:
                             #         json.dump([], f)
@@ -109,7 +109,7 @@
                             # with open(file_path, "w", encoding="utf-8") as f:
                             #     json.dump(data, f, ensure_ascii=False)
                                 
-                            # upload_file(f"/home/scrapeops/axioon-scrape/Spiders/Results/{self.name}_{timestamp}.json", "axioon", f"News/STATE/{self.name}_{timestamp}.json")
+                            # upload_file(f"Spiders/Results/{self.name}_{timestamp}.json", "axioon", f"News/STATE/{self.name}_{timestamp}.json")
                             # file_name = requests.post(f"{os.environ['API_IP']}/webhook/news", json={"records": f"News/STATE/{self.name}_{timestamp}.json"})
                      
 #         else:

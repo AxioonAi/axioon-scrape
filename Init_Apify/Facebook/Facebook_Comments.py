@@ -28,7 +28,7 @@ def upload_file(file_name, bucket, object_name=None):
 now = datetime.now()
 timestamp = datetime.timestamp(now)
 
-with open("/home/scrapeops/axioon-scrape/Init_Apify/Results/Facebook/Facebook_Posts_Urls.json", "r") as f:
+with open("Init_Apify/Results/Facebook/Facebook_Posts_Urls.json", "r") as f:
     input = json.load(f)
 
 input = [{"url": url} for url in input]
@@ -50,9 +50,9 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     
     json_str = json.dumps(json_array, indent=4, ensure_ascii=False)
     
-with open("/home/scrapeops/axioon-scrape/Init_Apify/Results/Facebook/Facebook_Comments.json", "w", encoding="utf-8") as f:
+with open("Init_Apify/Results/Facebook/Facebook_Comments.json", "w", encoding="utf-8") as f:
     f.write(json_str)
     
-upload_file(f"/home/scrapeops/axioon-scrape/Init_Apify/Results/Facebook/Facebook_Comments.json", "axioon", f"Apify/Facebook/Comments/Facebook_Comments_{timestamp}.json")
+upload_file(f"Init_Apify/Results/Facebook/Facebook_Comments.json", "axioon", f"Apify/Facebook/Comments/Facebook_Comments_{timestamp}.json")
 
 file_name = requests.post(f"{os.environ['API_IP']}/webhook/facebook/comments", json={"records": f"Apify/Facebook/Comments/Facebook_Comments_{timestamp}.json"})

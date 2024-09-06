@@ -22,7 +22,7 @@ def upload_file(file_name, bucket, object_name=None):
 
 now = datetime.now()
 timestamp = datetime.timestamp(now)
-yesterday = date.today() - timedelta(days=30)
+yesterday = date.today() - timedelta(days=15)
 
 input = requests.get(f"{os.environ['API_IP']}/scrape/facebook")
 

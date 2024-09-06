@@ -35,7 +35,7 @@ timestamp = datetime.timestamp(now)
 today = date.today().strftime("%d/%m/%Y")
 today = datetime.strptime(today, "%d/%m/%Y")
 
-search_limit = date.today() - timedelta(days=30)
+search_limit = date.today() - timedelta(days=15)
 search_limit = datetime.strptime(search_limit.strftime("%d/%m/%Y"), "%d/%m/%Y")
 
 site_id = "dfd6e216-808b-4ed7-8fef-0cf7ca9776e6"
@@ -43,7 +43,7 @@ site_id = "dfd6e216-808b-4ed7-8fef-0cf7ca9776e6"
 request = requests.get(f"{os.environ['API_IP']}/scrape/news/{site_id}")
 search_words = request.json()
 
-with open("/home/scrapeops/axioon-scrape/Spiders/CSS_Selectors/PR/Pr_CbnCuritiba.json") as f:
+with open("Spiders/CSS_Selectors/PR/Pr_CbnCuritiba.json") as f:
     search_terms = json.load(f)
 
 main_url = "https://cbncuritiba.com.br/page/"
@@ -99,7 +99,7 @@ class PrCbnCuritibaSpider(scrapy.Spider):
                             "users": item['users'],
                             "site_id": item['site_id']
                         }
-                        file_path = f"/home/scrapeops/axioon-scrape/Spiders/Results/{self.name}_{timestamp}.json"
+                        file_path = f"Spiders/Results/{self.name}_{timestamp}.json"
                         if not os.path.isfile(file_path):
                             with open(file_path, "w", encoding="utf-8") as f:
                                 json.dump([], f)
@@ -112,7 +112,7 @@ class PrCbnCuritibaSpider(scrapy.Spider):
                         with open(file_path, "w", encoding="utf-8") as f:
                             json.dump(data, f, ensure_ascii=False)
                             
-                        upload_file(f"/home/scrapeops/axioon-scrape/Spiders/Results/{self.name}_{timestamp}.json", "axioon", f"News/PR/{self.name}_{timestamp}.json")
+                        upload_file(f"Spiders/Results/{self.name}_{timestamp}.json", "axioon", f"News/PR/{self.name}_{timestamp}.json")
                         file_name = requests.post(f"{os.environ['API_IP']}/webhook/news", json={"records": f"News/PR/{self.name}_{timestamp}.json"})
                      
         else:
