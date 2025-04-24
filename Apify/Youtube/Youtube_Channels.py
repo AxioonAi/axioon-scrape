@@ -52,9 +52,10 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     json_array.append(json.loads(json_data))
     
     for item in json_array:
-        for channel_name, channel_id in zip(channel_names, channel_ids):
-            if item["inputChannelUrl"] in channel_name:
-                item["channel_id"] = channel_id
+        if "inputChannelUrl" in item and item["inputChannelUrl"] is not None:
+            for channel_name, channel_id in zip(channel_names, channel_ids):
+                if item["inputChannelUrl"] in channel_name:
+                    item["channel_id"] = channel_id
                 
     json_str = json.dumps(json_array, indent=4, ensure_ascii=False)
 

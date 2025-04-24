@@ -40,7 +40,7 @@ client = ApifyClient(os.environ['APIFY_KEY'])
 
 run_input = {
     "hashtags": instagram_hashtags,
-    "resultsLimit": 20,
+    "resultsLimit": 10,
 }
 
 run = client.actor("reGe1ST3OBgYZSsZJ").call(run_input=run_input)

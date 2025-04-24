@@ -40,7 +40,7 @@ client = ApifyClient(os.environ['APIFY_KEY'])
 
 run_input = {
     "hashtags": tiktok_hashtags,
-    "resultsPerPage": 20,
+    "resultsPerPage": 10,
     "shouldDownloadVideos": False,
     "shouldDownloadCovers": False,
     "shouldDownloadSubtitles": False,

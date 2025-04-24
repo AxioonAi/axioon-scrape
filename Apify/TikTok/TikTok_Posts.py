@@ -43,7 +43,7 @@ run_input = {
     "disableCheerioBoost": False,
     "disableEnrichAuthorStats": False,
     "profiles": [tiktok_name for tiktok_name in tiktok_names],
-    "resultsPerPage": 1000,
+    "resultsPerPage": 100,
     "scrapeLastNDays": 1,
     "shouldDownloadCovers": False,
     "shouldDownloadSlideshowImages": False,

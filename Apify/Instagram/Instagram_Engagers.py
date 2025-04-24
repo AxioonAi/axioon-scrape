@@ -43,7 +43,7 @@ client = ApifyClient(os.environ['APIFY_KEY'])
 run_input = {
     "directUrls": [f"https://www.instagram.com/{instagram_name}" for instagram_name in instagram_names],
     "resultsType": "details",
-    "resultsLimit": 20,
+    "resultsLimit": 10,
     "addParentData": False,
     "searchType": "hashtag",
     "searchLimit": 1,

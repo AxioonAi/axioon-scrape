@@ -37,7 +37,7 @@ client = ApifyClient(os.environ['APIFY_KEY'])
 
 run_input = {
     "includeNestedComments": False,
-    "resultsLimit": 1000,
+    "resultsLimit": 100,
     "startUrls": input
 }
 

@@ -1,8 +1,8 @@
 {
-  "article": "article",
+  "article": "div.post",
   "link": "a::attr(href)",
   "next_page": "",
-  "updated": "div.info h4::text",
+  "updated": "div.infoautor span::text",
   "title": "h1::text",
-  "content": "section.article-content"
+  "content": "div.content-single div.content"
 }

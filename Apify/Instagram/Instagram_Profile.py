@@ -43,7 +43,7 @@ client = ApifyClient(os.environ['APIFY_KEY'])
 run_input = {
     "directUrls": [f"https://www.instagram.com/{instagram_name}" for instagram_name in instagram_names],
     "resultsType": "details",
-    "resultsLimit": 20,
+    "resultsLimit": 10,
     "addParentData": False,
     "searchType": "hashtag",
     "searchLimit": 1,
@@ -58,9 +58,10 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     json_array.append(json.loads(json_data))
     
     for item in json_array:
-        for instagram_name, instagram_id in zip(instagram_names, instagram_ids):
-            if item["username"].lower() == instagram_name.lower():
-                item["instagram_id"] = instagram_id
+        if "username" in item and item["username"] is not None:
+            for instagram_name, instagram_id in zip(instagram_names, instagram_ids):
+                if item["username"].lower() == instagram_name.lower():
+                    item["instagram_id"] = instagram_id
     
     json_str = json.dumps(json_array, indent=4, ensure_ascii=False)
 

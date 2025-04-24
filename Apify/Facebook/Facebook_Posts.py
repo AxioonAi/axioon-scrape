@@ -37,7 +37,7 @@ facebook_ids = [item["id"] for item in input]
 client = ApifyClient(os.environ['APIFY_KEY'])
 
 run_input = {
-    "resultsLimit": 1000,
+    "resultsLimit": 100,
     "onlyPostsNewerThan": yesterday,
     "startUrls": [
         { "url": f"https://www.facebook.com/{facebook_name}/" } for facebook_name in facebook_names
@@ -52,7 +52,7 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     json_array.append(json.loads(json_data))
     
     for item in json_array:
-        if item["facebookUrl"]:
+        if "facebookUrl" in item and item["facebookUrl"] is not None:
             posts_set.add(item["url"])
             for facebook_name, facebook_id in zip(facebook_names, facebook_ids):
                 if item["facebookUrl"].lower() == f"https://www.facebook.com/{facebook_name}/".lower():
