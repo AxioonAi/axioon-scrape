@@ -63,11 +63,9 @@ class G1Spider(scrapy.Spider):
     def parse(self, response):
         for article in response.css(search_terms['article']):
             link = article.css(search_terms['link']).get()
-            print("link: ", link)
             yield Request(link, callback=self.parse_article, priority=1)
         self.INCREMENT += 1
         next_page = f"https://g1.globo.com/go/goias/ultimas-noticias/index/feed/pagina-{self.INCREMENT}.ghtml"
-        print("next_page: ", next_page)
         if next_page is not None:
             yield response.follow(next_page, callback=self.parse)
         else:
@@ -79,13 +77,10 @@ class G1Spider(scrapy.Spider):
         updated = updated.strip()
         updated = datetime.strptime(updated, "%d/%m/%Y").strftime("%d/%m/%Y")
         updated = datetime.strptime(updated, "%d/%m/%Y")
-        print("updated: ", updated)
         title = response.css(search_terms['title']).get()
-        print("title: ", title)
         content = response.css(search_terms['content']).getall()
         content = BeautifulSoup(" ".join(content), "html.parser").text
         content = content.replace("\n", " ")
-        print("content: ", content)
         if search_limit <= updated <= today:
             found_names = []
             for user in search_words['users']:

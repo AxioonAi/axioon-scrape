@@ -1,8 +1,7 @@
 from datetime import date, datetime, timedelta
 from botocore.exceptions import ClientError
 from scrapy.http import Request
-# from ..items import articleItem
-
+from ..items import articleItem
 from bs4 import BeautifulSoup
 import requests
 import logging
@@ -71,13 +70,10 @@ class GoDiarioDaManha(scrapy.Spider):
         date_str = match.group(1)
         updated = datetime.strptime(date_str, "%d de %B de %Y").strftime("%d/%m/%Y")
         updated = datetime.strptime(updated, "%d/%m/%Y")
-        print("updated: ", updated)
         title = response.css(search_terms['title']).get()
-        print("title: ", title)
         content = response.css(search_terms['content']).getall()
         content = BeautifulSoup(" ".join(content), "html.parser").text
         content = content.replace("\n", " ")
-        print("content: ", content)
         if search_limit <= updated <= today:
             found_names = []
             # for paragraph in content:
