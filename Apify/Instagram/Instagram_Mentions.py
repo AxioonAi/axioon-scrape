@@ -39,7 +39,7 @@ instagram_names = [item["instagram"] for item in input]
 
 instagram_ids = [item["id"] for item in input]
 
-client = ApifyClient("apify_api_92SQM25KaBkWnY83boKSaMbLOxT4PT3PbCih")
+client = ApifyClient(os.environ['APIFY_KEY'])
 
 run_input = {
     "username": [f"{instagram_name}" for instagram_name in instagram_names],
