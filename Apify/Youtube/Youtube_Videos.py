@@ -56,22 +56,22 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     json_array.append(json.loads(json_data))
     
     for item in json_array:
-        if item["url"]:
-            posts_set.add(item["url"])
+        if item["video_url"]:
+            posts_set.add(item["video_url"])
         for channel_name, channel_id in zip(channel_names, channel_ids):
-            if item["channelShortName"] in channel_name:
+            if item["channel_shortname"] in channel_name:
                 item["channel_id"] = channel_id
                 
     json_str = json.dumps(json_array, indent=4, ensure_ascii=False)
     posts_array = list(posts_set)
     posts_str = json.dumps(posts_array, indent=4, ensure_ascii=False)
 
-with open("/home/scrapeops/axioon-scrape/Apify/Results/Youtube/Youtube_Videos.json", "w", encoding="utf-8") as f:
+with open("/Apify/Results/Youtube/Youtube_Videos.json", "w", encoding="utf-8") as f:
     f.write(json_str)
 
-with open("/home/scrapeops/axioon-scrape/Apify/Results/Youtube/Youtube_Videos_Urls.json", "w", encoding="utf-8") as f:
+with open("/Apify/Results/Youtube/Youtube_Videos_Urls.json", "w", encoding="utf-8") as f:
     f.write(posts_str)
     
-upload_file(f"/home/scrapeops/axioon-scrape/Apify/Results/Youtube/Youtube_Videos.json", "axioon", f"Apify/YouTube/Videos/YouTube_Videos_{timestamp}.json")
+upload_file(f"/Apify/Results/Youtube/Youtube_Videos.json", "axioon", f"Apify/YouTube/Videos/YouTube_Videos_{timestamp}.json")
 
 file_name = requests.post(f"{os.environ['API_IP']}/webhook/youtube/video", json={"records": f"Apify/YouTube/Videos/YouTube_Videos_{timestamp}.json"})
