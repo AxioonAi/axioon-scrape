@@ -60,12 +60,13 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     json_array.append(json.loads(json_data))
     
     for item in json_array:
-        if "url" in item:
-            if item["url"]:
-                posts_set.add(item["url"])
-            for instagram_name, instagram_id in zip(instagram_names, instagram_ids):
-                if item["ownerUsername"].lower() == instagram_name.lower():
-                    item["instagram_id"] = instagram_id
+        if "ownerUsername" in item and item["ownerUsername"] is not None:
+            if "url" in item:
+                if item["url"]:
+                    posts_set.add(item["url"])
+                for instagram_name, instagram_id in zip(instagram_names, instagram_ids):
+                    if item["ownerUsername"].lower() == instagram_name.lower():
+                        item["instagram_id"] = instagram_id
                 
     json_str = json.dumps(json_array, indent=4, ensure_ascii=False)
     posts_array = list(posts_set)
