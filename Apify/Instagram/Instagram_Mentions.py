@@ -39,7 +39,7 @@ instagram_names = [item["instagram"] for item in input]
 
 instagram_ids = [item["id"] for item in input]
 
-client = ApifyClient(os.environ['APIFY_KEY'])
+client = ApifyClient("apify_api_92SQM25KaBkWnY83boKSaMbLOxT4PT3PbCih")
 
 run_input = {
     "username": [f"{instagram_name}" for instagram_name in instagram_names],
@@ -55,15 +55,14 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     json_array.append(json.loads(json_data))
     
     for item in json_array:
-        if "username" in item and item["username"] is not None:
-            if "taggedUsers" in item:
-                if item["url"]:
-                    posts_set.add(item["url"])
-                for taggedUser in item["taggedUsers"]:
-                    for instagram_name, instagram_id in zip(instagram_names, instagram_ids):
-                        if taggedUser["username"].lower() == instagram_name.lower():
-                            item["instagram_id"] = instagram_id
-                            item["instagram_username"] = instagram_name
+        if "mentions" in item:
+            if item["url"]:
+                posts_set.add(item["url"])
+            for taggedUser in item["mentions"]:
+                for instagram_name, instagram_id in zip(instagram_names, instagram_ids):
+                    if taggedUser.lower() == instagram_name.lower():
+                        item["instagram_id"] = instagram_id
+                        item["instagram_username"] = instagram_name
 
     json_str = json.dumps(json_array, ensure_ascii=False, indent=4)
     posts_array = list(posts_set)

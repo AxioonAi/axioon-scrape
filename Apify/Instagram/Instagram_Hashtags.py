@@ -59,7 +59,6 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
                     posts_set.add(item["url"])
                     for instagram_hashtag, instagram_id in zip(instagram_hashtags, instagram_ids):
                         if instagram_hashtag in item["hashtags"]:
-                            print("entrou")
                             item["hashtag_id"] = instagram_id
     
     json_str = json.dumps(json_array, indent=4, ensure_ascii=False)
