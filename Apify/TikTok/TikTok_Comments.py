@@ -44,7 +44,7 @@ client = ApifyClient(os.environ['APIFY_KEY'])
 
 run_input = {
     "postURLs": comments_input,
-    "commentsPerPost": 100,
+    "commentsPerPost": 50,
     "maxRepliesPerComment": 0,
 }
 run = client.actor("BDec00yAmCm1QbMEI").call(run_input=run_input)

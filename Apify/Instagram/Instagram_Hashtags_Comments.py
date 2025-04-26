@@ -36,7 +36,7 @@ client = ApifyClient(os.environ['APIFY_KEY'])
 
 run_input = {
     "directUrls": input,
-    "resultsLimit": 100
+    "resultsLimit": 50
 }
 
 run = client.actor("SbK00X0JYCPblD2wp").call(run_input=run_input)

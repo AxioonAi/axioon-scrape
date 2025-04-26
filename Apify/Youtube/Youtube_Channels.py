@@ -54,7 +54,7 @@ for item in client.dataset(run["defaultDatasetId"]).iterate_items():
     for item in json_array:
         if "inputChannelUrl" in item and item["inputChannelUrl"] is not None:
             for channel_name, channel_id in zip(channel_names, channel_ids):
-                if item["inputChannelUrl"] in channel_name:
+                if channel_name in item["inputChannelUrl"]:
                     item["channel_id"] = channel_id
                 
     json_str = json.dumps(json_array, indent=4, ensure_ascii=False)

@@ -37,7 +37,7 @@ facebook_ids = [item["id"] for item in input]
 client = ApifyClient(os.environ['APIFY_KEY'])
 
 run_input = {
-    "resultsLimit": 100,
+    "resultsLimit": 50,
     "onlyPostsNewerThan": yesterday,
     "startUrls": [
         { "url": f"https://www.facebook.com/{facebook_name}/" } for facebook_name in facebook_names

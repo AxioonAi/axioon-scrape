@@ -34,7 +34,7 @@ input = [{"url": url} for url in input]
 client = ApifyClient(os.environ['APIFY_KEY'])
 
 run_input = {
-    "maxComments": 100,
+    "maxComments": 50,
     "startUrls": input
 }
 
